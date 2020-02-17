@@ -654,7 +654,8 @@ class Sheet(BaseObject):
     def put_cell_ragged(self, rowx, colx, ctype, value, xf_index):
         if ctype is None:
             # we have a number, so look up the cell type
-            ctype = self._xf_index_to_xl_type_map[xf_index]
+            # XL_CELL_TEXT = 1
+            ctype = self._xf_index_to_xl_type_map.get(xf_index, 1)
         assert 0 <= colx < self.utter_max_cols
         assert 0 <= rowx < self.utter_max_rows
         fmt_info = self.formatting_info
@@ -713,7 +714,8 @@ class Sheet(BaseObject):
     def put_cell_unragged(self, rowx, colx, ctype, value, xf_index):
         if ctype is None:
             # we have a number, so look up the cell type
-            ctype = self._xf_index_to_xl_type_map[xf_index]
+            # XL_CELL_TEXT = 1
+            ctype = self._xf_index_to_xl_type_map.get(xf_index, 1)
         # assert 0 <= colx < self.utter_max_cols
         # assert 0 <= rowx < self.utter_max_rows
         try:
